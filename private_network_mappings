@@ -1,0 +1,6 @@
+controller-0 10.240.0.3
+controller-1 10.240.0.4
+controller-2 10.240.0.5
+worker-0 10.240.0.6
+worker-1 10.240.0.7
+worker-2 10.240.0.8

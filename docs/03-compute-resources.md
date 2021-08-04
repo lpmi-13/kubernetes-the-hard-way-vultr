@@ -61,6 +61,7 @@ for i in 0 1 2; do
     --ssh-keys ${SSH_KEY_ID} \
     --os 270 \
     --network ${NETWORK_ID} \
+    --private-network "true" \
     --label controller-${i} \
     --tag controller
 done
@@ -77,6 +78,7 @@ for i in 0 1 2; do
     --ssh-keys ${SSH_KEY_ID} \
     --os 270 \
     --network ${NETWORK_ID} \
+    --private-network "true" \
     --label worker-${i} \
     --tag worker
 done
@@ -215,5 +217,33 @@ for i in 0 1 2; do
     --instance-id ${instance_id}
 done
 ```
+
+And lastly, we need to do a bit of manual network routing configuration, since Vultr doesn't automatically configure
+the network adapters for us. So we need to copy over the private network mappings and then set these up to receive
+traffic via the `netplan` command:
+
+```sh
+for i in controller-0 controller-1 controller-2 worker-0 worker-1 worker-2; do
+  public_ip=$(vultr-cli instance list | grep ${i} | awk -F ' ' '{print $2}')
+
+  echo ssh -i kubernetes.id_rsa root@$controller_public_ip
+done
+```
+
+ssh into each of the instances (all 3 controllers and 3 worker), and run the following commands:
+
+```sh
+cat <<EOF | sudo tee /etc/netplan/06-enp6s0.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp6s0:
+      dhcp4: no
+      addresses: [PUT_THE_PRIVATE_IP_OF_INSTANCE_HERE/24]
+EOF
+```
+
+and then a simple `netplan apply` should have your instance ready to receive traffic on the private network.
 
 Next: [Certificate Authority](04-certificate-authority.md)

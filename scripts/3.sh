@@ -25,6 +25,7 @@ for i in 0 1 2; do
     --ssh-keys ${SSH_KEY_ID} \
     --os 270 \
     --network ${NETWORK_ID} \
+    --private-network "true" \
     --label controller-${i} \
     --tag controller
 done
@@ -37,6 +38,7 @@ for i in 0 1 2; do
     --ssh-keys ${SSH_KEY_ID} \
     --os 270 \
     --network ${NETWORK_ID} \
+    --private-network "true" \
     --label worker-${i} \
     --tag worker
 done
@@ -147,5 +149,27 @@ for i in 0 1 2; do
   worker_instance_id=$(vultr-cli instance list | grep worker-${i} | awk -F ' ' '{print $1}')
   vultr-cli instance update-firewall-group --firewall-group-id ${FIREWALL_ID} \
     --instance-id ${worker_instance_id}
+done
+
+for i in 0 1 2; do
+  controller_public_ip=$(vultr-cli instance list | grep controller-${i} | awk -F ' ' '{print $2}')
+
+  scp -i kubernetes.id_rsa \
+  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  private_network_mappings root@${controller_public_ip}:~/
+
+  ssh -i kubernetes.id_rsa \
+  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  root@$controller_public_ip < ./scripts/configure_private_network.sh
+
+  worker_public_ip=$(vultr-cli instance list | grep worker-${i} | awk -F ' ' '{print $2}')
+
+  scp -i kubernetes.id_rsa \
+  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  private_network_mappings root@${worker_public_ip}:~/
+
+  ssh -i kubernetes.id_rsa \
+  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  root@$worker_public_ip < ./scripts/configure_private_network.sh
 done
 
