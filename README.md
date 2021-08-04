@@ -37,10 +37,10 @@ Kubernetes The Hard Way guides you through bootstrapping a highly available Kube
 
 This tutorial assumes you have access to [Vultr](https://www.vultr.com/). If you are looking for the GCP version of this guide then look at : [https://github.com/kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way).
 
-* [Prerequisites](docs/01-prerequisites.md) (WIP)
-* [Installing the Client Tools](docs/02-client-tools.md) (WIP)
+* [Prerequisites](docs/01-prerequisites.md)
+* [Installing the Client Tools](docs/02-client-tools.md)
 * [Provisioning Compute Resources](docs/03-compute-resources.md) (WIP)
-* [Provisioning the CA and Generating TLS Certificates](docs/04-certificate-authority.md) (WIP)
+* [Provisioning the CA and Generating TLS Certificates](docs/04-certificate-authority.md)
 * [Generating Kubernetes Configuration Files for Authentication](docs/05-kubernetes-configuration-files.md) (WIP)
 * [Generating the Data Encryption Config and Key](docs/06-data-encryption-keys.md) (WIP)
 * [Bootstrapping the etcd Cluster](docs/07-bootstrapping-etcd.md) (WIP)
