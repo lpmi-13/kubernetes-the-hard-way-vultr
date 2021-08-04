@@ -56,7 +56,7 @@ NETWORK_ID=$(vultr-cli network list | awk 'FNR == 2 {print $1}')
 if [ ${NETWORK_ID} == "======================================" ]; then
   echo "no private network found"
 else
-  echo "sleeping for 10 seconds to allow droplets to be deleted first"
+  echo "sleeping for 10 seconds to allow instances to be deleted first"
   sleep 10
   echo "deleting Network: ${NETWORK_ID}"
   vultr-cli network delete ${NETWORK_ID}
