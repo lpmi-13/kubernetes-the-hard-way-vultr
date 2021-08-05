@@ -15,7 +15,7 @@ resources:
 EOF
 
 for instance in controller-0 controller-1 controller-2; do
-  external_ip=$(vultr-cli instance list | grep ${instance_id} \
+  external_ip=$(vultr-cli instance list | grep ${instance} \
     | awk -F ' ' '{print $2}')
 
   scp -i kubernetes.id_rsa \

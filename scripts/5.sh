@@ -103,7 +103,7 @@ kubectl config set-context default \
 kubectl config use-context default --kubeconfig=admin.kubeconfig
 
 for instance in worker-0 worker-1 worker-2; do
-  external_ip=$(vultr-cli instance list | grep $instance | awk -F ' ' '{print $2}')
+  external_ip=$(vultr-cli instance list | grep "$instance" | awk -F ' ' '{print $2}')
 
   scp -i kubernetes.id_rsa \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
@@ -111,7 +111,7 @@ for instance in worker-0 worker-1 worker-2; do
 done
 
 for instance in controller-0 controller-1 controller-2; do
-  external_ip=$(vultr-cli instance list | grep $instance | awk -F ' ' '{print $2}')
+  external_ip=$(vultr-cli instance list | grep "$instance" | awk -F ' ' '{print $2}')
   
   scp -i kubernetes.id_rsa \
     -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \

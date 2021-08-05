@@ -88,9 +88,9 @@ done
 
 Now we need to iterate through the nodes and grab their instance IDs so we can attach them to the load balancer.
 
-controller_0_id=$(vultr instance list | grep controller-0 | awk -F ' ' '{print $1}')
-controller_1_id=$(vultr instance list | grep controller-1 | awk -F ' ' '{print $1}')
-controller_2_id=$(vultr instance list | grep controller-2 | awk -F ' ' '{print $1}')
+controller_0_id=$(vultr-cli instance list | grep controller-0 | awk -F ' ' '{print $1}')
+controller_1_id=$(vultr-cli instance list | grep controller-1 | awk -F ' ' '{print $1}')
+controller_2_id=$(vultr-cli instance list | grep controller-2 | awk -F ' ' '{print $1}')
 
 
 ```sh
@@ -202,8 +202,8 @@ after the firewall is all set up, we need a separate API call to add the control
 
 ```
 for i in 0 1 2; do
-  instance_id=$(vultr instance list | grep controller-${i} | awk -F ' ' '{print $1}')
-  vultr instance update-firewall-group --firewall-group-id ${FIREWALL_ID} \
+  instance_id=$(vultr-cli instance list | grep controller-${i} | awk -F ' ' '{print $1}')
+  vultr-cli instance update-firewall-group --firewall-group-id ${FIREWALL_ID} \
     --instance-id ${instance_id}
 done
 ```
@@ -212,8 +212,8 @@ and we need to do the same for the worker instances
 
 ```
 for i in 0 1 2; do
-  instance_id=$(vultr instance list | grep worker-${i} | awk -F ' ' '{print $1}')
-  vultr instance update-firewall-group --firewall-group-id ${FIREWALL_ID} \
+  instance_id=$(vultr-cli instance list | grep worker-${i} | awk -F ' ' '{print $1}')
+  vultr-cli instance update-firewall-group --firewall-group-id ${FIREWALL_ID} \
     --instance-id ${instance_id}
 done
 ```
