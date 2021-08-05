@@ -51,7 +51,11 @@ controller_2_id=$(vultr-cli instance list | grep controller-2 | awk -F ' ' '{pri
 LOAD_BALANCER_ID=$(vultr-cli load-balancer create \
   --label "kubernetes-loadbalancer" \
   --instances ${controller_0_id},${controller_1_id},${controller_2_id} \
-  --protocol tcp \
+  --protocol "tcp" \
+  --port "6443" \
+  --check-interval "10" \
+  --response-timeout "5" \
+  --unhealthy-threshold "3" \
   --region ${REGION} \
   --private-network "$NETWORK_ID" \
   --forwarding-rules frontend_port:443,frontend_protocol:tcp,backend_port:6443,backend_protocol:tcp \

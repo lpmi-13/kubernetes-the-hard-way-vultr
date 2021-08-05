@@ -298,6 +298,8 @@ Make a HTTP request for the Kubernetes version info:
 curl -k --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}/version
 ```
 
+(*NOTE*: if you try this step and receive an error like `OpenSSL SSL_connect: SSL_ERROR_SYSCALL`, just try again in a minute or so...the backend seems to take some time to be able to response appropriately)
+
 > output
 
 ```
