@@ -29,7 +29,7 @@ ssh -i kubernetes.id_rsa \
 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
 root@$external_ip < ./scripts/set_up_rbac.sh
 
-echo sleeping for three minutes to allow the backend to be ready to receive on SSL connections...
+echo sleeping for three minutes to allow the backend to be ready to receive SSL connections...
 sleep 180
 
 KUBERNETES_PUBLIC_ADDRESS=$(vultr-cli load-balancer list | grep -i ipv4 | awk -F ' ' '{print $2}')
