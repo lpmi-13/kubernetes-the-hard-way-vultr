@@ -50,7 +50,7 @@ This tutorial assumes you have access to [Vultr](https://www.vultr.com/). If you
 * [Provisioning Pod Network Routes](docs/11-pod-network-routes.md)
 * [Deploying the DNS Cluster Add-on](docs/12-dns-addon.md)
 * [Smoke Test](docs/13-smoke-test.md) (WIP)
-* [Cleaning Up](docs/14-cleanup.md) (WIP)
+* [Cleaning Up](docs/14-cleanup.md)
 ## Scripts
 
 Since I'm only able to work on this in short stretches, it's easiest to script out steps so I can pick up where I left off. If you'd like to get to a certain point automatically, for example, the end of the steps in `docs/06-data-encryption-keys.md`, then you can run:
