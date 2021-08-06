@@ -9,7 +9,7 @@ This is a fork of the outstanding [Kubernetes The Hard Way - AWS](https://github
 3. containerd v1.3.2
 4. CNI plugins v0.8.5
 5. etcd v3.3.18
-6. doctl v1.60.0
+6. vultr-cli v2.7.0
 
 # Kubernetes The Hard Way
 
