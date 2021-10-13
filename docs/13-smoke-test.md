@@ -18,7 +18,7 @@ Print a hexdump of the `kubernetes-the-hard-way` secret stored in etcd:
 external_ip=$(vultr-cli instance list | grep controller-0 \
   | awk -F ' ' '{print $2}')
 
-ssh -i kubernetes.id_rsa root@${external_ip}
+ssh -i kubernetes.ed25519 root@${external_ip}
 ```
 Run below command in controller-0
 
@@ -228,7 +228,7 @@ Log in to a worker node. You can do this on all 3 workers to see the resources o
 external_ip=$(vultr-cli instance list | grep worker-0 \
   | awk -F ' ' '{print $2}')
 
-ssh -i kubernetes.id_rsa root@${external_ip}
+ssh -i kubernetes.ed25519 root@${external_ip}
 ```
 Run the following commands and check output
 

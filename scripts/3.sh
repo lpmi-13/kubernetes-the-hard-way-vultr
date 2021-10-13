@@ -7,9 +7,9 @@ NETWORK_ID=$(vultr-cli network create \
   --size 24 \
 | awk -F ' ' 'FNR == 2 {print $1}')
 
-ssh-keygen -t rsa -b 4096 -f kubernetes.id_rsa -N ""
+ssh-keygen -t ed25519 -o -a 100 -f kubernetes.ed25519 -N ""
 
-AUTHORIZED_KEY=$(cat kubernetes.id_rsa.pub | cut -d ' ' -f1-2)
+AUTHORIZED_KEY=$(cat kubernetes.ed25519.pub | cut -d ' ' -f1-2)
 
 SSH_KEY_ID=$(vultr-cli ssh-key create \
   --name kubernetes-key \
@@ -158,21 +158,21 @@ done
 for i in 0 1 2; do
   controller_public_ip=$(vultr-cli instance list | grep controller-${i} | awk -F ' ' '{print $2}')
 
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   private_network_mappings root@${controller_public_ip}:~/
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$controller_public_ip < ./scripts/configure_private_network.sh
 
   worker_public_ip=$(vultr-cli instance list | grep worker-${i} | awk -F ' ' '{print $2}')
 
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   private_network_mappings root@${worker_public_ip}:~/
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$worker_public_ip < ./scripts/configure_private_network.sh
 done

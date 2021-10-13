@@ -30,13 +30,13 @@ NETWORK_ID=$(vultr-cli network create \
 create a local ssh key just for this exercise
 
 ```
-ssh-keygen -t rsa -b 4096 -f kubernetes.id_rsa
+ssh-keygen -t ed25519 -o -a 100 -f kubernetes.ed25519
 ```
 
 > vultr wants the contents of the ssh key rather than a file reference, so we need to cat this out
 
 ```sh
-AUTHORIZED_KEY=$(cat kubernetes.id_rsa.pub | cut -d ' ' -f1-2)
+AUTHORIZED_KEY=$(cat kubernetes.ed25519.pub | cut -d ' ' -f1-2)
 ```
 
 now we can upload that key into the vultr system to be attached to our instances:
@@ -226,7 +226,7 @@ traffic via the `netplan` command:
 for i in controller-0 controller-1 controller-2 worker-0 worker-1 worker-2; do
   public_ip=$(vultr-cli instance list | grep ${i} | awk -F ' ' '{print $2}')
 
-  echo ssh -i kubernetes.id_rsa root@$controller_public_ip
+  echo ssh -i kubernetes.ed25519 root@$controller_public_ip
 done
 ```
 

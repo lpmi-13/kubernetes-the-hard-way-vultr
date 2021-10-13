@@ -11,7 +11,7 @@ for instance in worker-0 worker-1 worker-2; do
    external_ip=$(vultr-cli instance list | grep ${instance_id} \
      | awk -F ' ' '{print $2}')
 
-  echo ssh -i kubernetes.id_rsa root@$external_ip
+  echo ssh -i kubernetes.ed25519 root@$external_ip
 done
 ```
 
@@ -292,7 +292,7 @@ List the registered Kubernetes nodes:
 external_ip=$(vultr-cli instance list | grep controller-0 \
   | awk -F ' ' '{print $2}')
 
-ssh -i kubernetes.id_rsa root@${external_ip}
+ssh -i kubernetes.ed25519 root@${external_ip}
 
 kubectl get nodes --kubeconfig admin.kubeconfig
 ```

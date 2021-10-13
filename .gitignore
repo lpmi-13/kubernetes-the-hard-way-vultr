@@ -5,5 +5,5 @@
 *.yaml
 *.csr
 !/deployments/*
-*id_rsa*
+*ed25519*
 update_dns.sh

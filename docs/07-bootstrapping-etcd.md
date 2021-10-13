@@ -9,7 +9,7 @@ for instance in controller-0 controller-1 controller-2; do
   external_ip=$(vultr-cli instance list | grep ${instance} \
   | awk -F ' ' '{print $2}')
 
-  echo ssh -i kubernetes.id_rsa root@$external_ip
+  echo ssh -i kubernetes.ed25519 root@$external_ip
 done
 ```
 

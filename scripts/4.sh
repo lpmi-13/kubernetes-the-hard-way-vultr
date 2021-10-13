@@ -240,7 +240,7 @@ cfssl gencert \
 for instance in worker-0 worker-1 worker-2; do
   external_ip=$(vultr-cli instance list | grep $instance | awk -F ' ' '{print $2}')
 
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
     -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     ca.pem ${instance}-key.pem ${instance}.pem root@${external_ip}:~/
 done
@@ -248,7 +248,7 @@ done
 for instance in controller-0 controller-1 controller-2; do
   external_ip=$(vultr-cli instance list | grep $instance | awk -F ' ' '{print $2}')
 
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
     -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
     service-account-key.pem service-account.pem root@${external_ip}:~/

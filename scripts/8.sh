@@ -3,7 +3,7 @@ for instance in controller-0 controller-1 controller-2; do
   external_ip=$(vultr-cli instance list | grep ${instance} \
     | awk -F ' ' '{print $2}')
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$external_ip < ./scripts/bootstrap_control_plane.sh
 done
@@ -15,7 +15,7 @@ for instance in controller-0; do
   external_ip=$(vultr-cli instance list | grep ${instance} \
     | awk -F ' ' '{print $2}')
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
     -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     root@$external_ip "kubectl get componentstatus"
 done
@@ -25,7 +25,7 @@ echo "setting up RBAC from controller-0"
 external_ip=$(vultr-cli instance list | grep controller-0 \
   | awk -F ' ' '{print $2}')
 
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
 root@$external_ip < ./scripts/set_up_rbac.sh
 

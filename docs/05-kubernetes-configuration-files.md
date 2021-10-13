@@ -187,7 +187,7 @@ Copy the appropriate `kubelet` and `kube-proxy` kubeconfig files to each worker 
 for instance in worker-0 worker-1 worker-2; do
   external_ip=$(vultr-cli instance list | grep $instance | awk -F ' ' '{print $2}')
 
-  scp -i kubernetes.id_rsa ${instance}.kubeconfig kube-proxy.kubeconfig root@${external_ip}:~/
+  scp -i kubernetes.ed25519 ${instance}.kubeconfig kube-proxy.kubeconfig root@${external_ip}:~/
 done
 ```
 
@@ -197,7 +197,7 @@ Copy the appropriate `kube-controller-manager` and `kube-scheduler` kubeconfig f
 for instance in controller-0 controller-1 controller-2; do
   external_ip=$(vultr-cli instance list | grep $instance | awk -F ' ' '{print $2}')
   
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
     admin.kubeconfig kube-controller-manager.kubeconfig kube-scheduler.kubeconfig root@${external_ip}:~/
 done
 ```
