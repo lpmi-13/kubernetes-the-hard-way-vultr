@@ -226,7 +226,7 @@ traffic via the `netplan` command:
 for i in controller-0 controller-1 controller-2 worker-0 worker-1 worker-2; do
   public_ip=$(vultr-cli instance list | grep ${i} | awk -F ' ' '{print $2}')
 
-  echo ssh -i kubernetes.ed25519 root@$controller_public_ip
+  echo ssh -i kubernetes.ed25519 root@$public_ip
 done
 ```
 
