@@ -88,15 +88,18 @@ done
 
 Now we need to iterate through the nodes and grab their instance IDs so we can attach them to the load balancer.
 
+```sh
 controller_0_id=$(vultr-cli instance list | grep controller-0 | awk -F ' ' '{print $1}')
 controller_1_id=$(vultr-cli instance list | grep controller-1 | awk -F ' ' '{print $1}')
 controller_2_id=$(vultr-cli instance list | grep controller-2 | awk -F ' ' '{print $1}')
+```
 
+and then use those IDs to associate the instances with the load balancer.
 
 ```sh
 LOAD_BALANCER_ID=$(vultr-cli load-balancer create \
   --label "kubernetes-loadbalancer" \
-  --instances ${controller_0_id},${controller_1_id},${controller_2_id}
+  --instances ${controller_0_id},${controller_1_id},${controller_2_id} \
   --protocol tcp \
   --region ${REGION} \
   --private-network "$NETWORK_ID" \
